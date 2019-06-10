@@ -26,20 +26,77 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <cmath>
 
 using namespace std;
 
+vector<int> get_number(int);
+bool is_c(int);
+
 int main(void)
 {
-    vector<string> msg {"Hello", "C++", "World", "from", "VS Code!"};
-
-    for (const string& word : msg)
+    for (int i = 1; i < 8; i++)
     {
-        cout << word << " ";
+        vector<int> result = get_number(i);
+        cout<< i << ":" << result.size() << endl;
+        for (int j = 0; j < result.size(); j++)
+        {
+            cout << "    " << result.at(j) << " ";
+        }
+        cout << endl;
     }
 
-    cout << endl;
     cin.get();
-
     return 0;
+}
+
+vector<int> get_number(int n)
+{
+    vector<int> result;
+    int start = pow(10, (n-1));
+    int end = pow(10, n)-1;
+    if (n == 1)
+    {
+        start = 0;
+    }
+
+    for (int i = start; i <= end; i++)
+    {
+        if (is_c(i))
+        {
+            result.push_back(i);
+        }
+    }
+
+    return result;
+}
+
+bool is_c(int number)
+{
+    vector<int> digits;
+    int i = 10;
+    int tmp = number;
+    while(tmp > 0)
+    {
+        int digit = tmp%10;
+        tmp = tmp/10;
+        digits.push_back(digit);
+    }
+
+    int n = digits.size();
+    int sum = 0;
+    for (int i = 0; i < n; i++)
+    {
+        sum += pow(digits.at(i), n);
+    }
+
+    if (sum == number)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+    
 }
